@@ -18,13 +18,16 @@ namespace TopDownShooter
 
         public Vector2 pos, dims;
 
+        public float rot;
+
         public Texture2D myModel;
 
-        public Basic2D(String PATH,Vector2 POS, Vector2 DIMS) {
+        public Basic2D(String PATH,Vector2 POS, Vector2 DIMS) 
+        {
             pos = POS;
             dims = DIMS;
 
-            myModel = Globals.Content.Load<Texture2D>(PATH);
+            myModel = Globals.content.Load<Texture2D>(PATH);
         }
 
         public virtual void Update()
@@ -32,11 +35,20 @@ namespace TopDownShooter
 
         }
 
-        public virtual void Draw() {
+        public virtual void Draw(Vector2 OFFSET) {
 
             if (myModel != null)
             {
-                Globals.spriteBatch.Draw(myModel, new Rectangle((int)pos.X, (int)pos.Y, (int)dims.X, (int)dims.Y), null, Color.White, 0.0f, new Vector2(myModel.Bounds.Width / 2, myModel.Bounds.Height / 2), SpriteEffects.None, 0);
+                Globals.spriteBatch.Draw(myModel, new Rectangle((int)(pos.X + OFFSET.X), (int)(pos.Y + OFFSET.Y), (int)dims.X, (int)dims.Y), null, Color.White, rot, new Vector2(myModel.Bounds.Width / 2, myModel.Bounds.Height / 2), SpriteEffects.None, 0);
+            }
+        }
+
+        public virtual void Draw(Vector2 OFFSET, Vector2 ORIGIN)
+        {
+
+            if (myModel != null)
+            {
+                Globals.spriteBatch.Draw(myModel, new Rectangle((int)(pos.X + OFFSET.X), (int)(pos.Y + OFFSET.Y), (int)dims.X, (int)dims.Y), null, Color.White, rot, new Vector2(ORIGIN.X, ORIGIN.Y), SpriteEffects.None, 0);
             }
         }
     }
