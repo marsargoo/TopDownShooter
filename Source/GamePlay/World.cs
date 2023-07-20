@@ -18,19 +18,46 @@ namespace TopDownShooter.Source.GamePlay
     {
 
         public Hero hero;
+        public Vector2 offset;
+
+        public List<Projectile> projectiles = new List<Projectile>();
         public World()
         {
             hero = new Hero("2D/Hero", new Vector2(300, 300), new Vector2(48, 48));
+            GameGlobals.PassProjectile = AddProjectile;
+            offset = new Vector2(0,0);
         }
 
         public virtual void Update()
         {
             hero.Update();
+
+            for (int i = 0; i < projectiles.Count; i++)
+            {
+                projectiles[i].Update(offset, null);
+
+                if (projectiles[i].isDone)
+                {
+                    projectiles.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
+
+        public virtual void AddProjectile(object INFO)
+        {
+            projectiles.Add((Projectile)INFO);
+            
         }
 
         public virtual void Draw(Vector2 OFFSET)
         {
             hero.Draw(OFFSET);
+
+            for (int i = 0; i < projectiles.Count; i++)
+            {
+                projectiles[i].Draw(offset);
+            }
         }
     }
 }

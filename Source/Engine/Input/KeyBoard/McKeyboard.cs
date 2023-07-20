@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 #endregion
 
-namespace TopDownShooter.Source.Engine.Input.KeyBoard
+namespace TopDownShooter
 {
     public class McKeyboard
     {

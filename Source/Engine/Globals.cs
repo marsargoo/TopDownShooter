@@ -11,12 +11,14 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using TopDownShooter.Source.Engine.Input.KeyBoard;
 
 namespace TopDownShooter
 {
     public class Globals
     {
+        public delegate void PassObject(object i);
+        public delegate object PassObjectAndReturn(object i);
+
         public static int screenHeight, screenWidth;
 
         public static ContentManager content;
@@ -25,6 +27,8 @@ namespace TopDownShooter
 
         public static McKeyboard keyboard;
         public static McMouseControl mouse;
+
+        public static GameTime gameTime;
 
 
         public static float GetDistance(Vector2 pos, Vector2 target)

@@ -14,11 +14,11 @@ using Microsoft.Xna.Framework.Media;
 
 namespace TopDownShooter
 {
-    public class Hero : Basic2D 
+    public class Hero : Unit
     {
         public float speed;
 
-        public Hero(String PATH, Vector2 POS, Vector2 DIMS) : base(PATH, POS, DIMS)
+        public Hero(string PATH, Vector2 POS, Vector2 DIMS) : base(PATH, POS, DIMS)
         {
             speed = 2.0f;
         }
@@ -27,7 +27,7 @@ namespace TopDownShooter
         {
             if (Globals.keyboard.GetPress("A"))
             {
-                pos = new Vector2 (pos.X - speed, pos.Y);
+                pos = new Vector2(pos.X - speed, pos.Y);
             }
             if (Globals.keyboard.GetPress("D"))
             {
@@ -43,6 +43,11 @@ namespace TopDownShooter
             }
 
             rot = Globals.RotateTowards(pos, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y));
+
+            if (Globals.mouse.LeftClick())
+            {
+                GameGlobals.PassProjectile(new Fireball(new Vector2(pos.X, pos.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y)));
+            }
             base.Update();
         }
 

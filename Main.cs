@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SharpDX.DirectWrite;
-using TopDownShooter.Source.Engine.Input.KeyBoard;
 using TopDownShooter.Source.GamePlay;
 
 using var game = new TopDownShooter.Main();
@@ -12,7 +10,7 @@ namespace TopDownShooter
 {
     public class Main : Game
     {
-        GraphicsDeviceManager _graphics;
+        GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         World world;
@@ -21,7 +19,7 @@ namespace TopDownShooter
 
         public Main()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             
         }
@@ -29,6 +27,14 @@ namespace TopDownShooter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            Globals.screenWidth = 800;
+            Globals.screenHeight = 500;
+
+            graphics.PreferredBackBufferWidth = Globals.screenWidth;
+            graphics.PreferredBackBufferHeight = Globals.screenHeight;
+
+            graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -53,12 +59,12 @@ namespace TopDownShooter
                 Exit();
 
             // TODO: Add your update logic here
-
+            Globals.gameTime = gameTime;
             Globals.keyboard.Update();
             Globals.mouse.Update(); 
 
             world.Update();
-
+            
             Globals.keyboard.UpdateOld();
             Globals.mouse.UpdateOld();
 
