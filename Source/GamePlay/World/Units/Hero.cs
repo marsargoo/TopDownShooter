@@ -16,14 +16,13 @@ namespace TopDownShooter
 {
     public class Hero : Unit
     {
-        public float speed;
 
         public Hero(string PATH, Vector2 POS, Vector2 DIMS) : base(PATH, POS, DIMS)
         {
             speed = 2.0f;
         }
 
-        public override void Update()
+        public override void Update(Vector2 OFFSET)
         {
             if (Globals.keyboard.GetPress("A"))
             {
@@ -48,7 +47,7 @@ namespace TopDownShooter
             {
                 GameGlobals.PassProjectile(new Fireball(new Vector2(pos.X, pos.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y)));
             }
-            base.Update();
+            base.Update(OFFSET);
         }
 
         public override void Draw(Vector2 OFFSET)

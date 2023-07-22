@@ -56,16 +56,26 @@ namespace TopDownShooter
             {
                 isDone = true;
             }
-            if (hitSomething(UNITS) == true)
+            if (HitSomething(UNITS))
             {
                 isDone = true;
             }
 
         }
 
-        public virtual bool hitSomething(List<Unit> UNITS)
+        public virtual bool HitSomething(List<Unit> UNITS)
         {
+            for (int i = 0; i < UNITS.Count; i++)
+            {
+                if (Globals.GetDistance(pos, UNITS[i].pos) < UNITS[i].hitDist)
+                {
+                    UNITS[i].GetHit();
+                    return true;
+                }          
+            }
+
             return false;
+
         }
 
         public override void Draw(Vector2 OFFSET)

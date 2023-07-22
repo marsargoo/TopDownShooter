@@ -11,32 +11,24 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Security.Cryptography;
 
 namespace TopDownShooter
 {
-    public class Unit : Basic2D 
+    public class Imp : Mob
     {
-        public bool isDead;
 
-        public float speed, hitDist;
-
-        public Unit(String PATH, Vector2 POS, Vector2 DIMS) : base(PATH, POS, DIMS)
+        public Imp(Vector2 POS) : base("2D\\Units\\Mobs\\Imp", POS, new Vector2(40,40))
         {
-            isDead = false;
-            hitDist = 35.0f;
             speed = 2.0f;
         }
 
-        public override void Update(Vector2 OFFSET)
+        public override void Update(Vector2 OFFSET, Hero HERO)
         {
-           
-            base.Update(OFFSET);
+            base.Update(OFFSET, HERO);
         }
 
-        public virtual void GetHit()
-        {
-            isDead = true;
-        }
+
         public override void Draw(Vector2 OFFSET)
         {
             base.Draw(OFFSET);

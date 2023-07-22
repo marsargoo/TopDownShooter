@@ -14,21 +14,29 @@ using Microsoft.Xna.Framework.Media;
 
 namespace TopDownShooter
 {
-    public class Unit : Basic2D 
+    public class SpawnPoint : Basic2D 
     {
         public bool isDead;
 
-        public float speed, hitDist;
+        public float hitDist;
 
-        public Unit(String PATH, Vector2 POS, Vector2 DIMS) : base(PATH, POS, DIMS)
+        public McTimer spawnTimer = new McTimer(2200);
+
+        public SpawnPoint(String PATH, Vector2 POS, Vector2 DIMS) : base(PATH, POS, DIMS)
         {
             isDead = false;
-            hitDist = 35.0f;
-            speed = 2.0f;
+            hitDist = 35.0f;           
         }
 
         public override void Update(Vector2 OFFSET)
         {
+            spawnTimer.UpdateTimer();
+
+            if (spawnTimer.Test())
+            {
+                SpawnMob();
+                spawnTimer.ResetToZero();
+            }
            
             base.Update(OFFSET);
         }
@@ -36,6 +44,11 @@ namespace TopDownShooter
         public virtual void GetHit()
         {
             isDead = true;
+        }
+        
+        public virtual void SpawnMob()
+        {
+            GameGlobals.PassMob(new Imp(new Vector2(pos.X, pos.Y)));
         }
         public override void Draw(Vector2 OFFSET)
         {
