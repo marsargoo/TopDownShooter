@@ -16,6 +16,8 @@ namespace TopDownShooter.Source.GamePlay
 {
     public class World
     {
+        public UI ui;
+        public int numKilled;
 
         public Hero hero;
         public Vector2 offset;
@@ -38,6 +40,9 @@ namespace TopDownShooter.Source.GamePlay
 
             spawnPoints.Add(new SpawnPoint("2D\\Misc\\circle", new Vector2(Globals.screenWidth - 50, 50), new Vector2(35, 35)));
             spawnPoints[spawnPoints.Count - 1].spawnTimer.AddToTimer(1000);
+
+            ui = new UI();
+            numKilled = 0;
         }
 
         public virtual void Update()
@@ -67,10 +72,13 @@ namespace TopDownShooter.Source.GamePlay
 
                 if (mobs[i].isDead)
                 {
+                    numKilled++;
                     mobs.RemoveAt(i);
                     i--;
                 }
             }
+
+            ui.Update(this);
         }
 
         public virtual void AddMobs(object INFO)
@@ -102,6 +110,8 @@ namespace TopDownShooter.Source.GamePlay
             {
                 mobs[i].Draw(offset);
             }
+
+            ui.Draw(this);
         }
     }
 }
