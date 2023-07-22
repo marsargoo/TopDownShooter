@@ -20,7 +20,7 @@ namespace TopDownShooter
 
         public Imp(Vector2 POS) : base("2D\\Units\\Mobs\\Imp", POS, new Vector2(40,40))
         {
-            speed = 2.0f;
+            speed = 1.5f;
         }
 
         public override void Update(Vector2 OFFSET, Hero HERO)

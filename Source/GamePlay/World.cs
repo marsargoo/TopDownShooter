@@ -30,7 +30,7 @@ namespace TopDownShooter.Source.GamePlay
             hero = new Hero("2D/Hero", new Vector2(300, 300), new Vector2(48, 48));
             GameGlobals.PassProjectile = AddProjectile;
             GameGlobals.PassMob = AddMobs;
-
+            GameGlobals.CheckScroll = CheckScroll;
             offset = new Vector2(0,0);
 
             spawnPoints.Add(new SpawnPoint("2D\\Misc\\circle", new Vector2(50, 50), new Vector2(35, 35)));
@@ -91,9 +91,31 @@ namespace TopDownShooter.Source.GamePlay
             projectiles.Add((Projectile)INFO);
 
         }
+
+        public virtual void CheckScroll(object INFO)
+        {
+            Vector2 tempVector = (Vector2)INFO;
+
+            if (tempVector.X < -offset.X + Globals.screenWidth * .4f)
+            {
+                offset = new Vector2(offset.X + hero.speed, offset.Y);
+            }
+            if (tempVector.X > -offset.X + Globals.screenWidth * .6f)
+            {
+                offset = new Vector2(offset.X - hero.speed, offset.Y);
+            }
+            if (tempVector.Y < -offset.Y + Globals.screenHeight * .4f)
+            {
+                offset = new Vector2(offset.X, offset.Y + hero.speed);
+            }
+            if (tempVector.Y > -offset.Y + Globals.screenHeight * .6f)
+            {
+                offset = new Vector2(offset.X, offset.Y - hero.speed);
+            }
+        }
         public virtual void Draw(Vector2 OFFSET)
         {
-            hero.Draw(OFFSET);
+            hero.Draw(offset);
 
             for (int i = 0; i < projectiles.Count; i++)
             {
