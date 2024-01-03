@@ -33,7 +33,7 @@ namespace TopDownShooter
 
             graphics.PreferredBackBufferWidth = Globals.screenWidth;
             graphics.PreferredBackBufferHeight = Globals.screenHeight;
-            d
+            j
             graphics.ApplyChanges();
 
             base.Initialize();
